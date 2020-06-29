@@ -1,0 +1,76 @@
+<template>
+  <div>
+    <q-header elevated>
+      <q-toolbar class="bg-white">
+        <q-icon name="home" color="indigo" style="font-size: 1.5em;" />
+        <q-toolbar-title>
+          <div class="text-body1 text-indigo">Kementrian Agama AGPAII</div>
+        </q-toolbar-title>
+        <q-btn
+          icon="exit_to_app"
+          color="indigo"
+          dense
+          flat
+          @click="onLogout()"
+        />
+      </q-toolbar>
+    </q-header>
+    <q-page padding class="bg-grey-3">
+      <!-- content -->
+      <q-intersection
+        v-for="item in items"
+        :key="item.id"
+        :style="`min-height: 25vh;width: 100vw`"
+        transition="scale"
+      >
+        <q-card
+          class="my-card text-white"
+          style="margin-left:20vw;height:20vh;background-image:url('https://images.unsplash.com/photo-1573166364524-d9dbfd8bbf83?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');background-size:cover"
+        >
+          <q-card-section>
+            <div class="text-body1 text-indigo">{{ item.name }}</div>
+          </q-card-section>
+        </q-card>
+      </q-intersection>
+    </q-page>
+  </div>
+</template>
+
+<script>
+export default {
+  // name: 'PageName',
+  data() {
+    return {
+      items: [
+        {
+          id: 1,
+          name: "Informasi"
+        },
+        {
+          id: 1,
+          name: "Guru terbaik"
+        },
+        {
+          id: 2,
+          name: "Guru teraktif"
+        },
+        {
+          id: 3,
+          name: "Pengawas teraktif"
+        },
+        {
+          id: 4,
+          name: "Pengawas terajin"
+        }
+      ]
+    };
+  },
+  methods: {
+    onLogout() {
+      this.$router.push("/login").then(() => {
+        this.$store.dispatch("Auth/logout");
+      });
+    },
+  }
+};
+</script>
