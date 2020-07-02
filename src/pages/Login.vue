@@ -81,6 +81,8 @@ export default {
           this.loading = true
           this.$store.dispatch('Auth/login',this.credential).then(res=>{
               this.$router.push('/')
+              this.$store.dispatch("Setting/getCountUser")
+              this.$store.dispatch("Setting/getProvinces")
               window.history.pushState(null, null ,window.location.href)
           }).catch(err=>{
             this.$q.notify('Email atau Password salah')

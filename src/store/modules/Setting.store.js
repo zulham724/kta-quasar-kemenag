@@ -10,8 +10,8 @@ const state = {
         bgToolbar: "statics/bg-toolbar.jpeg"
     },
     count: {},
+    provinces:[],
 };
-
 // Mutations
 const mutations = {
     setTotalMemberEachRegion(state, payload) {
@@ -19,11 +19,32 @@ const mutations = {
     },
     setTotalUser(state, payload) {
         state.count = {...state.count, user_total: payload.user_total };
+    },
+    setProvinces(state, payload){
+        state.provinces = payload
     }
 };
 
 // Actions
 const actions = {
+    getProvinces({commit, dispatch}){
+        return new Promise((resolve, reject) => {
+            dispatch("Province/index",{}, {root:true})
+              .then(res => {
+                  let provinces = res.data
+                  .sort((a, b) => {
+                    return b.users_count - a.users_count;
+                  })
+                  .slice(0, 10);
+                  //console.log(provinces)
+                  commit("setProvinces", provinces);
+                  resolve()
+              })
+              .catch(err => {
+                reject(err);
+              });
+          });
+    },
     getDetailTotalMember({ commit }) {
         return new Promise((resolve, reject) => {
             axios

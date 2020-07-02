@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-header elevated >
+    <q-header elevated>
       <q-toolbar class="bg-white">
         <q-icon name="home" color="indigo" style="font-size: 1.5em;" />
         <q-toolbar-title>

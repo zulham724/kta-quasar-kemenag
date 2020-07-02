@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHr lpR fFr">
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -43,6 +43,9 @@ export default {
   components: {},
   computed: {
     ...mapState(["Setting", "Auth", "MusicPlayer"])
+  },
+  mounted:function(){
+    
   },
   data() {
     return {
