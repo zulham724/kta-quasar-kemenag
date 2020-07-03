@@ -1,38 +1,46 @@
 <template>
-  <div>
-    <q-header elevated >
-      <q-toolbar class="bg-white">
-        <q-icon name="home" color="indigo" style="font-size: 1.5em;" />
-        <q-toolbar-title>
-          <div class="text-body1 text-indigo">Kementrian Agama AGPAII</div>
+  <div class="style1 text-white">
+    <q-layout view="lHh lpr lFf">
+      <q-header elevated class="transparent">
+        <q-toolbar>
+        <q-toolbar-title class="text-weight-light ">
+                Kementrian Agama AGPAII
         </q-toolbar-title>
-        <q-btn
-          icon="exit_to_app"
-          color="indigo"
-          dense
-          flat
-          @click="onLogout()"
-        />
-      </q-toolbar>
-    </q-header>
-    <q-page padding class="bg-grey-3">
-      <!-- content -->
-      <q-intersection
-        v-for="item in items"
-        :key="item.id"
-        :style="`min-height: 25vh;width: 100vw`"
-        transition="scale"
-      >
-        <q-card
-          class="my-card text-white"
-          style="margin-left:20vw;height:20vh;background-image:url('https://images.unsplash.com/photo-1573166364524-d9dbfd8bbf83?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');background-size:cover"
-        >
-          <q-card-section>
-            <div class="text-body1 text-indigo">{{ item.name }}</div>
-          </q-card-section>
-        </q-card>
-      </q-intersection>
-    </q-page>
+        <q-btn flat round dense icon="search" @click="$router.push({ name: 'usersearch' })" />
+        <div class="col-1"></div>
+        <q-btn flat round dense icon="logout" @click="onLogout()" />
+        </q-toolbar>
+      </q-header>
+      
+      <q-page-container>
+          <q-page padding>
+        <!-- content -->
+        <div class="row full-width q-mb-md">
+           <div class="col-6"
+            v-for="item in items"
+            :key="item.id"
+           >
+           <q-intersection transition="scale"> 
+             <q-card class="my-card q-ma-sm bg-teal text-white text-bold" style="height:15vh;opacity:0.8" @click="$router.push(`/user/searchBest/${item.category}`)">
+              <q-icon v-bind:name="item.icon" style="position:absolute;bottom:0;right:0" size="xl" />
+              <q-card-section>
+                {{item.name}}
+              </q-card-section>
+            </q-card>
+           </q-intersection>
+             
+
+           </div>
+        </div>
+        
+        
+      </q-page>
+      </q-page-container>
+
+    </q-layout>
+    
+
+    
   </div>
 </template>
 
@@ -43,24 +51,24 @@ export default {
     return {
       items: [
         {
-          id: 1,
-          name: "Informasi"
+          name: "Guru teraktif di lapangan",
+          icon: 'event',
+          category: 'events_max'
         },
         {
-          id: 2,
-          name: "Guru terbaik"
+          name: "Guru teraktif membuat RPP",
+          icon: 'note',
+          category: 'lesson_plans_max'
         },
         {
-          id: 3,
-          name: "Guru teraktif"
+          name: "Guru teraktif berdiskusi ",
+          icon:'record_voice_over',
+          category: 'posts_max'
         },
         {
-          id: 4,
-          name: "Pengawas teraktif"
-        },
-        {
-          id: 5,
-          name: "Pengawas terajin"
+          name: "Guru dengan wawasan terluas",
+          icon:'book',
+          category:'books_max'
         }
       ]
     };
@@ -77,3 +85,8 @@ export default {
   }
 };
 </script>
+<style type="text/css">
+.style1{
+  background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url('~assets/images/bg-login.jpg');background-size:cover;
+}
+</style>

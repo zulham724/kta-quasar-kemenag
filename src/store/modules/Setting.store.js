@@ -11,6 +11,7 @@ const state = {
     },
     count: {},
     provinces:[],
+    bestusers:{}
 };
 // Mutations
 const mutations = {
@@ -22,6 +23,9 @@ const mutations = {
     },
     setProvinces(state, payload){
         state.provinces = payload
+    },
+    setBestUsers(state, payload){
+        state.bestusers = payload
     }
 };
 
@@ -44,6 +48,17 @@ const actions = {
                 reject(err);
               });
           });
+    },
+    getBestUsers({commit}){
+        return new Promise((resolve, reject) => {
+            axios
+                .get(`${this.state.Setting.url}/api/v1/setting/information`)
+                .then(res => {
+                   // console.log(res.data)
+                    commit("setBestUsers", {data: res.data});
+                    //resolve(res)
+                });
+        });
     },
     getDetailTotalMember({ commit }) {
         return new Promise((resolve, reject) => {

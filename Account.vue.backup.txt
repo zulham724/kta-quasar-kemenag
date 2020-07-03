@@ -3,13 +3,11 @@
     <q-layout view="lHh lpr lFf">
       <q-header elevated class="transparent">
         <q-toolbar>
-          <q-toolbar-title>
             <q-toolbar-title class="text-center text-weight-bolder">
               PROFILE
             </q-toolbar-title>
-          </q-toolbar-title>
 
-          <q-btn flat round dense icon="logout" />
+          <q-btn flat round dense icon="logout" @click="onLogout()" />
         </q-toolbar>
       </q-header>
 
@@ -48,31 +46,50 @@
           <div class="row justify-center full-width" style="padding:20px">
             <div class="col-12 text-center">
               <div class="text-white text-weight-bold">
-                <q-skeleton v-show="loading" width="65%" type="text" animation="fade"/>
+                <!-- <q-skeleton v-show="loading" width="65%" type="text" animation="fade"/> -->
                 {{ Setting.count.user_total }}</div>
               <div class="text-white">Jumlah Guru Nasional</div>
             </div>
           </div>
-          
-         
-          <div class="row justify-center full-width">
-            <div class="col-12 text-center">
-              <q-card class="my-card" style="opacity:0.6;background:black">
-                <q-card-section>
-                  <q-item-label header>
-                  <div class="text-white text-weight-light">Top 10 DPW dengan user terbanyak</div>
-                  </q-item-label>
-                </q-card-section>
-                <q-card-section>
-                  
-                  <q-item clickable v-ripple>
-        <q-item-section>
-          <div class="text-white text-weight-light">Top 10 DPW dengan user terbanyak</div>
-        </q-item-section>
-      </q-item>
-                  
-                </q-card-section>
-              </q-card>
+
+          <div class="row">
+            <div class="col-12">
+              <q-list dense bordered padding class="rounded-borders" style="background:black;opacity:0.6">
+                <q-item-label header> <div class="text-white text-center text-weight-light">Top 10 DPW dengan user terbanyak</div></q-item-label>
+                
+                          
+         <q-item
+          v-for="n in 5"
+          :key="`loading-${n}`"
+          v-show="loading"
+        >
+          <q-item-section>
+            <q-item-label caption>
+              <q-skeleton type="text" />
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item v-show="!loading"
+          clickable
+          v-ripple
+          v-for="province in Setting.provinces"
+          :key="province.id"
+          @click="$router.push(`/city/${province.name}/${province.id}`)"
+        >
+          <q-item-section>
+            <q-item-label lines="1"><div class="text-white text-weight-light">{{ province.name }}</div></q-item-label>
+          </q-item-section>
+
+          <q-item-section side>
+            <q-item-label lines="2"
+              ><div class="text-white text-weight-light">{{ province.users_count }} anggota</div></q-item-label
+            >
+          </q-item-section>
+        </q-item>
+               
+      
+              </q-list>
             </div>
              
           </div>
@@ -96,21 +113,28 @@ export default {
       loading: false
     }
   },
+  mounted(){
+    
+  },
  methods: {
     refresh(done){
+      this.loading=true
       this.$store.dispatch("Auth/getAuth").then(res => {
          this.$store.dispatch("Setting/getCountUser").then(res2=>{
-           if (done) done();
+           this.$store.dispatch("Setting/getProvinces").then(res3=>{
+              console.log(res3)
+              this.loading=false
+              done();
+           })
          })
-        
+      });
+      
+    },
+    onLogout() {
+      this.$router.push("/login").then(() => {
+        this.$store.dispatch("Auth/logout");
       });
     },
-    // getAuth(done) {
-    //   console.log(done)
-    //   this.$store.dispatch("Auth/getAuth").then(res => {
-    //     if (done) done();
-    //   });
-    // },
     zoom(src) {
       this.$q
         .dialog({
@@ -141,7 +165,6 @@ export default {
 </script>
 <style type="text/css">
 .style1{
-   height:100vh;
   background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url('~assets/images/bg-login.jpg');background-size:cover;
 
 }

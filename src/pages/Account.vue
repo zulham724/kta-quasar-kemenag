@@ -3,11 +3,9 @@
     <q-layout view="lHh lpr lFf">
       <q-header elevated class="transparent">
         <q-toolbar>
-          <q-toolbar-title>
             <q-toolbar-title class="text-center text-weight-bolder">
               PROFILE
             </q-toolbar-title>
-          </q-toolbar-title>
 
           <q-btn flat round dense icon="logout" @click="onLogout()" />
         </q-toolbar>
@@ -111,7 +109,6 @@ export default {
   // name: 'PageName',
   data(){
     return{
-      provinces: [],
       loading: false
     }
   },

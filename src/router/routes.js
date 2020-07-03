@@ -42,6 +42,19 @@ const routes = [{
             path: '/account',
             component: () =>
                 import ('pages/Account.vue')
+        }, {
+            path: '/user/:userId/book',
+            name: 'userbook',
+            component: () =>
+                import ('pages/user/BookPage.vue'),
+            props: true
+        },
+        {
+            path: '/user/searchBest/:category',
+            name: 'usersearchbest',
+            component: () =>
+                import ('pages/user/SearchPageBestUser.vue'),
+            props: true
         }],
     }, {
         path: '/login',
@@ -63,6 +76,20 @@ const routes = [{
         component: () =>
             import ("pages/CityPage.vue"),
         props: true
+    },
+    {
+        path: "/user/profile/:userId",
+        name: "userprofile",
+        component: () =>
+            import ("pages/user/ProfilePage.vue"),
+        props: true
+    },
+    {
+        path: "/user/search",
+        beforeEnter: multiguard([auth, actived]),
+        name: "usersearch",
+        component: () =>
+            import ("pages/user/SearchPage.vue")
     },
     // Always leave this as last one,
     // but you can also remove it
