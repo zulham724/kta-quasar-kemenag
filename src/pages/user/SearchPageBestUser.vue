@@ -1,7 +1,7 @@
 <template>
   <div>
-       <q-layout view="lHh lpr lFf">
-            <q-header elevated>
+    <q-layout view="lHh lpr lFf">
+            <q-header elevated class="transparent">
       <q-toolbar class="bg-white">
         <q-btn
           color="teal"
@@ -19,7 +19,6 @@
             label="Cari"
             borderless
             class="q-ml-sm q-mr-sm"
-            @input="onSearch"
           >
             <template v-slot:after>
               <q-icon name="search" />
@@ -30,10 +29,10 @@
     </q-header>
     <q-page-container>
       <q-page>
-          <q-infinite-scroll @load="onLoad" :offset="250">
+          <q-infinite-scroll :offset="250">
             
             <q-list bordered class="rounded-borders">
-              <div v-if="loading">
+              <div v-if="!Setting.bestusers.data">
                 <q-item
                   style="max-width: 300px;"
                   v-for="n in 9"
@@ -56,12 +55,12 @@
               <div v-if="Setting.bestusers.data">
                 <!-- {{Setting.bestusers.data['posts_max'][0].author_id}} -->
                 <q-intersection
-                  v-for="bestuser in Setting.bestusers.data[category]"
+                  v-for="(bestuser, index) in bestUsers"
                   :key="bestuser.id"
-                  :style="`min-height: 10vh;width: 100vw`"
-                  transition="scale"
+                  style="padding:0.7vh"
+                  transition="flip-right"
                 >
-                  <best-user-component :bestuser="bestuser"></best-user-component>
+                  <best-user-component :index="index" :bestuser="bestuser"></best-user-component>
                 </q-intersection>
               </div>
             </q-list>
@@ -85,7 +84,14 @@ import { debounce } from "quasar";
 export default {
     props:['category'],
   computed: {
-    ...mapState(["Setting", "Auth"])
+    ...mapState(["Setting", "Auth"]),
+    
+    bestUsers:function(){
+      if (this.search.length != 0) {
+        return this.Setting.bestusers.data[this.category].filter(e=>e.name.indexOf(this.search)>-1)
+      }else return this.Setting.bestusers.data[this.category]
+    }
+
   },
   components: {
     BestUserComponent: () => import("components/user/BestUserComponent.vue")
@@ -93,9 +99,8 @@ export default {
   data(){
     return {
      search: "",
-      bestusers: {},
+      //bestusers: {},
       loading: false,
-        
     }
   },
   mounted(){
@@ -133,6 +138,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style type="text/css">
+.style1{
+  background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url('~assets/images/bg-login.jpg');background-size:cover;
+}
 </style>

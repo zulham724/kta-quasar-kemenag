@@ -1,18 +1,65 @@
 <template>
   <div>
-    <q-item clickable v-ripple v-if="bestuser != null" @click="$router.push(`/user/profile/${bestuser.user_id?bestuser.user_id:bestuser.author_id}`)">
-      <q-item-section avatar>
-        <q-avatar>
-          <q-img :src="`${Setting.storageUrl}/${bestuser.avatar}`" width="15vw" no-default-spinner />
-        </q-avatar>
-      </q-item-section>
-
-      <q-item-section>
-        <q-item-label lines="3">{{ bestuser.name }}</q-item-label>
-        <q-item-label caption lines="2">{{ bestuser.email }}</q-item-label>
-      </q-item-section>
-
-    </q-item>
+    <q-card class="my-card">
+       <q-badge style="position:absolute;top:0;left:0" color="teal" :label="'#'+(index+1)" />
+      <q-card-section clickable v-ripple v-if="bestuser!= null" @click="$router.push(`/user/profile/${bestuser.id}`)">
+        <div class="row justify-center">
+            <q-avatar size="20vw" >
+                    <q-img 
+                    :src="`${Setting.storageUrl}/${bestuser.avatar}`"
+                      no-default-spinner
+                    />
+                  </q-avatar>  
+          </div>
+           <div class="row justify-center" >
+              {{bestuser.name}}
+          </div>
+          <q-separator />
+          
+          <div class="row justify-center" >
+            <div class="col-3 self-center">
+              <div class="row justify-center">
+                <div class="text-body1 text-bold">
+                  {{bestuser.total_posts}}
+                </div>
+              </div>
+              <div class="row justify-center">
+                <div class="text-caption">Media</div>
+              </div>
+            </div>
+            <div class="col-3 self-center">
+              <div class="row justify-center">
+                <div class="text-body1 text-bold">
+                  {{bestuser.total_event_guests}}
+                </div>
+              </div>
+              <div class="row justify-center">
+                <div class="text-caption">Acara</div>
+              </div>
+            </div>
+            <div class="col-3 self-center">
+              <div class="row justify-center">
+                <div class="text-body1 text-bold">
+                   {{bestuser.total_books}}
+                </div>
+              </div>
+              <div class="row justify-center">
+                <div class="text-caption">Buku</div>
+              </div>
+            </div>
+            <div class="col-3 self-center">
+              <div class="row justify-center">
+                <div class="text-body1 text-bold">
+                  {{bestuser.total_lesson_plans}}
+                </div>
+              </div>
+              <div class="row justify-center">
+                <div class="text-caption">RPP</div>
+              </div>
+            </div>
+          </div>
+      </q-card-section>
+    </q-card>
   </div>
 </template>
 
@@ -20,7 +67,8 @@
 import { mapState } from "vuex";
 export default {
   props: {
-    bestuser: null
+    bestuser: null,
+    index:null,
   },
   computed: {
     ...mapState(["Setting", "Auth"])

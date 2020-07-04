@@ -21,7 +21,7 @@
             :key="item.id"
            >
            <q-intersection transition="scale"> 
-             <q-card class="my-card q-ma-sm bg-teal text-white text-bold" style="height:15vh;opacity:0.8" @click="$router.push(`/user/searchBest/${item.category}`)">
+             <q-card :class="`my-card q-ma-sm bg-${item.color} text-white text-bold`" style="height:15vh;opacity:0.8" @click="$router.push(`/user/searchBest/${item.category}`)">
               <q-icon v-bind:name="item.icon" style="position:absolute;bottom:0;right:0" size="xl" />
               <q-card-section>
                 {{item.name}}
@@ -53,22 +53,26 @@ export default {
         {
           name: "Guru teraktif di lapangan",
           icon: 'event',
-          category: 'events_max'
+          category: 'event_guests_max',
+          color:'blue',
         },
         {
           name: "Guru teraktif membuat RPP",
           icon: 'note',
-          category: 'lesson_plans_max'
+          category: 'lesson_plans_max',
+          color:'light-blue',
         },
         {
           name: "Guru teraktif berdiskusi ",
           icon:'record_voice_over',
-          category: 'posts_max'
+          category: 'posts_max',
+          color:'cyan'
         },
         {
           name: "Guru dengan wawasan terluas",
           icon:'book',
-          category:'books_max'
+          category:'books_max',
+          color:'teal'
         }
       ]
     };

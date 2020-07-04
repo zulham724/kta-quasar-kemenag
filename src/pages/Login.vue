@@ -78,23 +78,19 @@ export default {
     onSubmit() {
       this.$refs.form.validate().then(success=>{
         if(success){
-          this.loading = this.loading2 = true
+          this.loading = true
           this.$store.dispatch('Auth/login',this.credential).then(res=>{
               this.$router.push('/')
 
               this.$store.dispatch("Setting/getCountUser")
-              this.$store.dispatch('Setting/getProvinces',this.credential).then(res2=>{
-            
-              }).finally(()=>{
-                  this.loading = false
-              })
+              this.$store.dispatch('Setting/getProvinces',this.credential)
               this.$store.dispatch("Setting/getBestUsers")
 
               window.history.pushState(null, null ,window.location.href)
           }).catch(err=>{
             this.$q.notify('Email atau Password salah')
           }).finally(()=>{
-              //this.loading = false
+              this.loading = false
           });
          
         }
