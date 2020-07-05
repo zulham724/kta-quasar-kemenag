@@ -1,4 +1,5 @@
 <template>
+ <q-pull-to-refresh @refresh="refresh" color="teal">
  <div class="q-pa-md style1">
     <q-layout view="lHh lpr lFf">
       <q-header elevated class="transparent">
@@ -13,7 +14,7 @@
 
       <q-page-container >
         <q-page padding class="q-pa-none q-ma-none">
-           <q-pull-to-refresh @refresh="refresh" color="teal">
+          
           <div class="row justify-center">
             <q-avatar size="25vw" @click="zoom(Auth.auth.avatar)">
                     <q-img style="self-center"
@@ -94,11 +95,12 @@
              
           </div>
           
-           </q-pull-to-refresh>
+          
         </q-page>
       </q-page-container>
     </q-layout>
   </div>
+   </q-pull-to-refresh>
 </template>
 
 <script>

@@ -56,7 +56,7 @@ const actions = {
                 .then(res => {
                    // console.log(res.data)
                     commit("setBestUsers", {data: res.data});
-                    //resolve(res)
+                    resolve(res)
                 });
         });
     },

@@ -21,7 +21,7 @@
 
     <q-page-container >
         <q-page v-if="user != null">
-        <q-pull-to-refresh @refresh="getUser" color="teal">
+        <q-pull-to-refresh @refresh="refresh" color="teal">
 
           
            <!-- <div class="row justify-center" >
@@ -306,11 +306,16 @@ export default {
     };
   },
   methods: {
-    getUser(done) {
+    getUser() {
       this.$store.dispatch("User/show", this.userId).then(res => {
         this.user = res.data;
-      
-        if (done) done();
+        //if (done) done();
+      });
+    },
+    refresh(done){
+      this.getUser();
+      this.$store.dispatch("Setting/getBestUsers").then(res=>{
+        done()
       });
     },
     onLogout() {
