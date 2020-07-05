@@ -169,12 +169,17 @@
             </div>
           </div>
 
-          <div class="row">
+          <div class="row" >
             <div class="col-12">
               <q-card class="my-card" style="background: rgba(0, 0, 0, 0.6);">
                 <q-card-section>
+                  <div class="row">
+                    <div class="q-pr-sm" v-for="(badge, index) in getUserBadges" :key="index">
+                       <q-badge :color="badge.color">#{{badge.rank}} {{badge.text}} <q-icon :name="badge.icon"/></q-badge>
+                    </div>                      
+                  </div>
                  <div class="row" >
-                    <div class="text-body2 text-teal q-pb-sm" v-if="user.kta_id">
+                    <div class="text-body2 text-teal q-pb-sm q-pt-sm" v-if="user.kta_id">
                     No Anggota: {{ user.kta_id }}
                     </div>
                 </div>
@@ -183,28 +188,18 @@
                   {{ user.email }}
                   </div>
               </div>
+              
+                
                 </q-card-section>
               </q-card>
             </div>
             <div>
-              <div class="q-pa-sm">
-                <q-badge color="primary"><q-icon
-                    name="event"/>Paling aktif</q-badge>
-              </div>
-    </div>
+
+            
+            </div>
     
           </div>
           
-            <!-- <div class="row q-pt-md" >
-                <div class="text-body2 text-teal q-pb-sm" v-if="user.kta_id">
-                No Anggota: {{ user.kta_id }}
-                </div>
-            </div> -->
-            <!-- <div class="row">
-                <div class="text-caption q-pb-sm">
-                {{ user.email }}
-                </div>
-            </div> -->
             <div class="row">
                 <div class="text-caption" v-if="user.profile" v-linkified style="overflow-wrap:break-word; white-space:pre-line">
                 {{ user.profile.long_bio }}
@@ -257,12 +252,14 @@ export default {
   },
   components: {
     PostPhotoComponent: () => import("components/user/PostPhotoComponent.vue"),
-    PostTextComponent: () => import("components/user/PostTextComponent.vue")
+    PostTextComponent: () => import("components/user/PostTextComponent.vue"),
+    BadgeUser: ()=> import("components/user/BadgeUser.vue")
   },
   created() {
-    if (this.userId == this.Auth.auth.id)
-      this.$router.push({ name: "account" });
+    // if (this.userId == this.Auth.auth.id)
+    //   this.$router.push({ name: "account" });
     this.getUser();
+    
   },
   data() {
     return {
@@ -280,13 +277,40 @@ export default {
       selected_view_post: {
         label: "Post Media",
         value: "photo"
-      }
+      },
+       badges: [
+        {
+          text: "teraktif di lapangan",
+          icon: 'event',
+          category: 'event_guests_max',
+          color:'blue',
+        },
+        {
+          text: "teraktif membuat RPP",
+          icon: 'note',
+          category: 'lesson_plans_max',
+          color:'light-blue',
+        },
+        {
+          text: "teraktif berdiskusi ",
+          icon:'record_voice_over',
+          category: 'posts_max',
+          color:'cyan'
+        },
+        {
+          text: "wawasan terluas",
+          icon:'book',
+          category:'books_max',
+          color:'teal'
+        }
+      ]
     };
   },
   methods: {
     getUser(done) {
       this.$store.dispatch("User/show", this.userId).then(res => {
         this.user = res.data;
+      
         if (done) done();
       });
     },
@@ -314,7 +338,20 @@ export default {
     }
   },
   computed: {
-    ...mapState(["Setting", "Auth"])
+    ...mapState(["Setting", "Auth"]),
+    getUserBadges(){
+      const userbadges = []
+      if(this.Setting.bestusers.data==null)return [];
+      this.badges.forEach((v,k)=>{
+        const cek = this.Setting.bestusers.data[v.category].map(function(e){
+          return e.id;
+        }).indexOf(this.user.id);
+        if(cek>-1){
+          userbadges.push({...v,rank:cek+1}) 
+        }
+      })
+      return userbadges;
+    }
   }
 };
 </script>
