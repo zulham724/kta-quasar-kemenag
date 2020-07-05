@@ -253,7 +253,6 @@ export default {
   components: {
     PostPhotoComponent: () => import("components/user/PostPhotoComponent.vue"),
     PostTextComponent: () => import("components/user/PostTextComponent.vue"),
-    BadgeUser: ()=> import("components/user/BadgeUser.vue")
   },
   created() {
     // if (this.userId == this.Auth.auth.id)
