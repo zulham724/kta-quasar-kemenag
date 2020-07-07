@@ -1,6 +1,7 @@
 <template>
   <div style="width:100%">
     <q-card
+      style="background: rgba(0, 0, 0, 0.5);"
       v-if="post != null"
       :style="`${post.files.length ? 'min-height:80vh' : 'min-height:30vh'}`"
     >
@@ -147,13 +148,13 @@
                 icon="message"
                 @click="$router.push(`/post/comment/${post.id}`)"
               />
-              <q-btn
+              <!-- <q-btn
                 v-if="post.files.length"
                 flat
                 round
                 :icon="post.bookmarked ? 'bookmark' : 'bookmark_border'"
                 @click="post.bookmarked ? unBookmark() : bookmark()"
-              />
+              /> -->
             </div>
           </div>
         </div>
@@ -182,9 +183,7 @@ import { mapState } from "vuex";
 import ImageZoomer from "components/ImageZoomerComponent.vue";
 
 export default {
-  props: {
-    post: null
-  },
+  props:['post'],
   components: {},
   computed: {
     ...mapState(["Setting", "Auth"])
@@ -198,6 +197,7 @@ export default {
     };
   },
   mounted(){
+    console.log(this.post)
   },
   methods: {
     bookmark() {
@@ -338,5 +338,8 @@ export default {
 <style>
 .q-carousel__slide {
   padding: 0;
+}
+a {
+  color:#26A69A;
 }
 </style>

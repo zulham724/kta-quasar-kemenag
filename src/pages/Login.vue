@@ -15,9 +15,7 @@
         <div class="col-12">
           <q-form @submit="onSubmit" ref="form" class="q-gutter-md">
             <q-input
-              color="indigo"
-              style="opacity:0.8"
-              bg-color="white"
+              dark
               rounded
               outlined
               label="Email anda"
@@ -28,9 +26,7 @@
               ]"
             />
             <q-input
-              color="indigo"
-              style="opacity:0.8"
-              bg-color="white"
+              dark
               rounded
               outlined
               label="Password"
@@ -86,9 +82,14 @@ export default {
               this.$store.dispatch('Setting/getProvinces',this.credential)
               this.$store.dispatch("Setting/getBestUsers")
 
+            ;
+
               window.history.pushState(null, null ,window.location.href)
           }).catch(err=>{
-            this.$q.notify('Email atau Password salah')
+            console.log(err.message)
+            if(err.message.indexOf('not allowed')>-1){
+               this.$q.notify('Hanya user kehormatan yang berhak mengakses')
+            }else this.$q.notify('Email atau Password salah')
           }).finally(()=>{
               this.loading = false
           });
@@ -106,5 +107,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

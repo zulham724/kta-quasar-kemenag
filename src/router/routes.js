@@ -55,7 +55,30 @@ const routes = [{
             component: () =>
                 import ('pages/user/SearchPageBestUser.vue'),
             props: true
-        }],
+        }, 
+        {
+            path: "/user/photolist/:userId/:postId",
+            name: "userphotolist",
+            component: () =>
+                import ("pages/user/PhotoListPage.vue"),
+            props: true
+        },
+        {
+            path: "/post/comment/like/:commentId",
+            name: "postcommentlike",
+            component: () =>
+                import ("pages/post/comment/LikePage.vue"),
+            props: true
+        },
+        {
+            path: "/post/like/:postId",
+            name: "postlike",
+            component: () =>
+                import ("pages/post/LikePage.vue"),
+            props: true
+        }
+    
+    ],
     }, {
         path: '/login',
         name: 'login',
@@ -90,6 +113,14 @@ const routes = [{
         name: "usersearch",
         component: () =>
             import ("pages/user/SearchPage.vue")
+    },
+    {
+        path: "/post/comment/:postId",
+        beforeEnter: multiguard([auth, actived]),
+        name: "postcomment",
+        component: () =>
+            import ("pages/post/CommentPage.vue"),
+        props: true
     },
     // Always leave this as last one,
     // but you can also remove it

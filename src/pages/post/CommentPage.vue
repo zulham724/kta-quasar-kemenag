@@ -1,16 +1,17 @@
 <template>
+<div class="style1">
   <q-layout view="hHh Lpr fFf">
-    <q-header elevated>
-      <q-toolbar class="bg-white">
-        <q-btn color="teal" flat dense icon="arrow_back" @click="$router.back()" />
+    <q-header elevated style="background: rgba(0, 0, 0, 0.6);">
+      <q-toolbar >
+        <q-btn color="white" flat dense icon="arrow_back" @click="$router.back()" />
         <q-toolbar-title>
-          <div class="text-body2 text-teal text-bold">Komentar</div>
+          <div class="text-body2 text-white text-bold">Komentar</div>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
 
     <q-page-container v-if="post != null">
-      <div class="q-pa-md">
+      <div class="q-pa-md" style="background: rgba(0, 0, 0, 0.4);">
         <div class="row q-pb-md">
           <div class="col-2 self-center">
             <q-avatar @click="$router.push(`/user/profile/${post.author_id.id}`)">
@@ -22,13 +23,13 @@
             <div class="row">
               <div class="col">
                 <div
-                  class="text-bold text-body2"
+                  class="text-bold text-body2 text-white"
                   @click="$router.push(`/user/profile/${post.author_id.id}`)"
                 >
                   {{ post.author_id.name }}
                 </div>
                 <div
-                  class="text-grey text-caption"
+                  class="text-grey text-caption text-white"
                   @click="$router.push(`/user/profile/${post.author_id.id}`)"
                 >
                   {{ post.author_id.role ? post.author_id.role.display_name : null }} {{post.author_id.profile ? post.author_id.profile.school_place : null}}
@@ -40,7 +41,7 @@
         <div class="row">
           <div class="col-12">
             <div
-              class="text-caption"
+              class="text-caption text-white"
               style="overflow-wrap:break-word; white-space:pre-line"
               v-html="post.body"
               v-linkified
@@ -55,7 +56,7 @@
         </div>
       </div>
       <q-list bordered class="rounded-borders">
-        <q-item-label header>Komentar</q-item-label>
+        <q-item-label header style="background: rgba(0, 0, 0, 0.4);" class="text-white">Komentar</q-item-label>
 
         <item-component
           v-for="comment in post.comments"
@@ -65,7 +66,7 @@
       </q-list>
     </q-page-container>
 
-    <q-footer style="padding:5px;background-color:white">
+    <!-- <q-footer style="padding:5px;background-color:white">
       <q-input
         dense
         label="Tulis sesuatu"
@@ -89,8 +90,9 @@
           </div>
         </template>
       </q-input>
-    </q-footer>
+    </q-footer> -->
   </q-layout>
+</div>
 </template>
 
 <script>
@@ -116,7 +118,7 @@ export default {
   },
   mounted() {
     this.post == null ? this.getPost() : null;
-    this.$refs.keyboard.focus()
+    //this.$refs.keyboard.focus()
   },
   methods: {
     getPost() {
@@ -165,4 +167,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style type="text/css">
+.style1{
+  background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url('~assets/images/bg-login.jpg');background-size:cover;
+}
+</style>

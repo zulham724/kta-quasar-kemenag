@@ -1,9 +1,10 @@
 <template>
+<div class="style1">
+
   <q-layout view="hHh Lpr fFf">
-    <q-header elevated>
-      <q-toolbar class="bg-white">
+    <q-header elevated style="background: rgba(0, 0, 0, 0.6);">
+      <q-toolbar>
         <q-btn
-          color="teal"
           flat
           dense
           icon="arrow_back"
@@ -11,23 +12,26 @@
         />
         <q-toolbar-title>
           <q-input
-            dense
+            dark
             color="teal"
+            dense
             square
             v-model="search"
             label="Cari"
+            label-color="white"
             borderless
-            class="q-ml-sm q-mr-sm"
+            class="q-ml-sm q-mr-sm text-white"
             @input="onSearch"
           >
             <template v-slot:after>
-              <q-icon name="search" />
+              <q-icon color="white" name="search" />
             </template>
           </q-input>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
     <q-page-container>
+      
       <q-infinite-scroll @load="onLoad" :offset="250">
         <q-list bordered class="rounded-borders">
           <div v-if="loading">
@@ -56,6 +60,7 @@
               :key="user.id"
               :style="`min-height: 10vh;width: 100vw`"
               transition="scale"
+              style="background: rgba(0, 0, 0, 0.3);"
             >
               <item-component :user="user"></item-component>
             </q-intersection>
@@ -69,6 +74,7 @@
       </q-infinite-scroll>
     </q-page-container>
   </q-layout>
+</div>
 </template>
 
 <script>
@@ -120,4 +126,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style type="text/css">
+.style1{
+  background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url('~assets/images/bg-login.jpg');background-size:cover;
+}
+</style>

@@ -1,10 +1,9 @@
 <template>
-  <div>
+  <div class="style1">
     <q-layout view="lHh lpr lFf">
-            <q-header elevated class="transparent">
-      <q-toolbar class="bg-white">
+            <q-header elevated  style="background: rgba(0, 0, 0, 0.6);">
+      <q-toolbar>
         <q-btn
-          color="teal"
           flat
           dense
           icon="arrow_back"
@@ -12,16 +11,17 @@
         />
         <q-toolbar-title>
           <q-input
+            dark
             dense
-            color="teal"
             square
             v-model="search"
             label="Cari"
+            label-color="white"
             borderless
             class="q-ml-sm q-mr-sm"
           >
             <template v-slot:after>
-              <q-icon name="search" />
+              <q-icon color="white" name="search" />
             </template>
           </q-input>
         </q-toolbar-title>
@@ -57,10 +57,10 @@
                 <q-intersection
                   v-for="(bestuser, index) in bestUsers"
                   :key="bestuser.id"
-                  style="padding:0.7vh"
+                  class="q-pa-xs"
                   transition="flip-right"
                 >
-                  <best-user-component :index="index" :bestuser="bestuser"></best-user-component>
+                  <best-user-component :color="getCategoryColor(category)" :index="index" :bestuser="bestuser"></best-user-component>
                 </q-intersection>
               </div>
             </q-list>
@@ -88,7 +88,7 @@ export default {
     
     bestUsers:function(){
       if (this.search.length != 0) {
-        return this.Setting.bestusers.data[this.category].filter(e=>e.name.indexOf(this.search)>-1)
+        return this.Setting.bestusers.data[this.category].filter(e=>e.name.toLowerCase().indexOf(this.search.toLowerCase())>-1)
       }else return this.Setting.bestusers.data[this.category]
     }
 
@@ -101,6 +101,28 @@ export default {
      search: "",
       //bestusers: {},
       loading: false,
+      item:[
+        {
+          icon: 'event',
+          category: 'event_guests_max',
+          color:'blue',
+        },
+        {
+          icon: 'note',
+          category: 'lesson_plans_max',
+          color:'light-blue',
+        },
+        {
+          icon:'record_voice_over',
+          category: 'posts_max',
+          color:'cyan'
+        },
+        {
+          icon:'book',
+          category:'books_max',
+          color:'teal'
+        }
+      ]
     }
   },
   mounted(){
@@ -133,6 +155,11 @@ export default {
               done();
             })
         : done();
+    },
+    getCategoryColor:function(category){
+      return this.item[this.item.map(function(e){
+        return e.category;
+      }).indexOf(category)].color;
     }
   }
 }

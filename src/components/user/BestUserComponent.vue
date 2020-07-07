@@ -1,7 +1,7 @@
 <template>
   <div>
-    <q-card class="my-card">
-       <q-badge style="position:absolute;top:0;left:0" color="teal" :label="'#'+(index+1)" />
+    <q-card class="my-card" style="background: rgba(0, 0, 0, 0.6);">
+       <q-badge style="position:absolute;top:0;left:0" :color="color" :label="'#'+(index+1)" />
       <q-card-section clickable v-ripple v-if="bestuser!= null" @click="$router.push(`/user/profile/${bestuser.id}`)">
         <div class="row justify-center">
             <q-avatar size="20vw" >
@@ -11,12 +11,12 @@
                     />
                   </q-avatar>  
           </div>
-           <div class="row justify-center" >
+           <div class="row justify-center text-white" >
               {{bestuser.name}}
           </div>
           <q-separator />
           
-          <div class="row justify-center" >
+          <div class="row justify-center text-white" >
             <div class="col-3 self-center">
               <div class="row justify-center">
                 <div class="text-body1 text-bold">
@@ -69,6 +69,7 @@ export default {
   props: {
     bestuser: null,
     index:null,
+    color:null,
   },
   computed: {
     ...mapState(["Setting", "Auth"])

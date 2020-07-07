@@ -8,8 +8,8 @@
       </q-item-section>
 
       <q-item-section>
-        <q-item-label lines="3">{{ user.name }}</q-item-label>
-        <q-item-label caption lines="2">{{ user.email }}</q-item-label>
+        <q-item-label style="color:#fff" lines="3">{{ user.name }}</q-item-label>
+        <q-item-label  style="color:#fff" caption lines="2">{{ user.email }}</q-item-label>
       </q-item-section>
 
     </q-item>

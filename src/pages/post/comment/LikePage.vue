@@ -1,16 +1,17 @@
 <template>
+<div class="style1">
   <q-layout view="hHh Lpr fFf">
-    <q-header elevated>
-      <q-toolbar class="bg-white">
+    <q-header elevated style="background: rgba(0, 0, 0, 0.6);">
+      <q-toolbar>
         <q-btn
-          color="teal"
+          color="white"
           flat
           dense
           icon="arrow_back"
           @click="$router.back()"
         />
         <q-toolbar-title>
-          <div class="text-body2 text-teal text-bold">Suka</div>
+          <div class="text-body2 text-white text-bold">Suka</div>
         </q-toolbar-title>
         <q-space />
       </q-toolbar>
@@ -44,6 +45,7 @@
               :key="u"
               :style="`min-height: 10vh;width: 100vw`"
               transition="scale"
+              style="background: rgba(0, 0, 0, 0.3);"
             >
               <item-component :user="user"></item-component>
             </q-intersection>
@@ -51,6 +53,7 @@
         </q-list>
     </q-page-container>
   </q-layout>
+</div>
 </template>
 
 <script>
@@ -84,4 +87,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style type="text/css">
+.style1{
+  background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url('~assets/images/bg-login.jpg');background-size:cover;
+}
+</style>

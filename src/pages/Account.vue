@@ -2,7 +2,7 @@
  <q-pull-to-refresh @refresh="refresh" color="teal">
  <div class="q-pa-md style1">
     <q-layout view="lHh lpr lFf">
-      <q-header elevated class="transparent">
+      <q-header elevated style="background: rgba(0, 0, 0, 0.6);">
         <q-toolbar>
             <q-toolbar-title class="text-center text-weight-bolder">
               PROFILE
@@ -28,9 +28,9 @@
               {{Auth.auth.name}}
             </p>
           </div>
-          <div class="row justify-center">
+          <div v-if="cityName!=null" class="row justify-center">
             <p class="text-white text-weight-light">
-              {{Auth.auth.profile.city.name}}
+              {{cityName}}
             </p>
           </div>
 
@@ -157,11 +157,14 @@ export default {
       this.$store.dispatch("Setting/getCountUser");
     }
   },
-  computed: mapState([
-    // map this.count to store.state.count
-    'Setting',
-    'Auth'
-  ])
+  computed: {
+    ...mapState(["Setting", "Auth"]),
+    cityName:function(){
+      console.log(this.Auth.auth.profile.city)
+      return (typeof this.Auth.auth.profile.city==='object') && this.Auth.auth.profile.city!=null ? this.Auth.auth.profile.city.name: this.Auth.auth.profile.city;
+      
+    }
+  },
 }
 </script>
 <style type="text/css">

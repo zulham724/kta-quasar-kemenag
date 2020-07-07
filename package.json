@@ -17,7 +17,7 @@
     "moment": "^2.27.0",
     "plyr": "^3.6.2",
     "qrcode": "^1.4.4",
-    "quasar": "^1.0.0",
+    "quasar": "^1.12.8",
     "vue-chat-scroll": "^1.4.0",
     "vue-drag-sortable": "^0.2.2",
     "vue-linkify": "^1.0.1",
@@ -29,7 +29,7 @@
     "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
-    "@quasar/app": "^2.0.0"
+    "@quasar/app": "^2.0.1"
   },
   "browserslist": [
     "last 10 Chrome versions",

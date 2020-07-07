@@ -19,7 +19,8 @@ module.exports = function( /* ctx */ ) {
         // https://quasar.dev/quasar-cli/boot-files
         boot: [
 
-            'axios', 'moment', 'vue-linkify', 'vue-zoomer'
+            'axios', 'moment', 'vue-chat-scroll', 'app-version', 'vue-linkify', 'vue-zoomer', 'notification', 'vue-plyr'
+
         ],
 
         // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

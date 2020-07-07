@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background: rgba(0, 0, 0, 0.6);" class="text-white">
     <q-item clickable v-ripple v-if="comment != null">
       <q-item-section avatar top class="q-pt-md" @click="$router.push(`/user/profile/${comment.user.id}`)">
         <q-avatar>
@@ -9,10 +9,10 @@
 
       <q-item-section>
         <q-item-label>
-          <div class="text-caption text-black text-bold" @click="$router.push(`/user/profile/${comment.user.id}`)">{{ comment.user.name }}</div>
+          <div class="text-caption text-white text-bold" @click="$router.push(`/user/profile/${comment.user.id}`)">{{ comment.user.name }}</div>
         </q-item-label>
         <q-item-label caption>
-          <div class="text-caption text-black" v-linkified>{{ comment.value }}</div>
+          <div class="text-caption text-white" v-linkified>{{ comment.value }}</div>
         </q-item-label>
         <q-item-label caption>
           <div class="row">

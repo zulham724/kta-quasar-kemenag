@@ -14,7 +14,7 @@
         :key="post.id"
         :style="`min-height: 30vh;width: 100vw`"
       >
-        <item-component :post="{...post}"></item-component>
+        <item-component :post="post"></item-component>
       </q-intersection>
     </div>
   </div>
@@ -23,11 +23,15 @@
 <script>
 import {mapState} from 'vuex'
 export default {
-  props:{
-    user: null
-  },
+  props:['user'],
   components: {
     ItemComponent: () => import("components/post/ItemComponent.vue")
+  },
+  created(){
+      //console.log(this.user.posts)
+  },
+  mounted(){
+    //
   },
   computed:{
     ...mapState(['Auth','Setting'])

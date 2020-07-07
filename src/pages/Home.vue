@@ -1,7 +1,7 @@
 <template>
   <div class="style1 text-white">
     <q-layout view="lHh lpr lFf">
-      <q-header elevated class="transparent">
+      <q-header elevated style="background: rgba(0, 0, 0, 0.6);">
         <q-toolbar>
         <q-toolbar-title class="text-weight-light ">
                 Kementrian Agama AGPAII

@@ -55,8 +55,14 @@ const actions = {
                                 token: token,
                                 auth: auth
                             };
+                            //alert('as')
+                            if(res.data.role.id!==10){
+                                //console.log(res.data.role.id)
+                                throw new Error('not allowed');
+                            }
                             commit("auth_success", payload);
                             resolve(resp);
+                            
                         })
                         .catch(err => {
                             reject(err);
@@ -84,6 +90,7 @@ const actions = {
                                 token: token,
                                 auth: auth
                             };
+                           
                             commit("auth_success", payload);
                             resolve(resp);
                         })

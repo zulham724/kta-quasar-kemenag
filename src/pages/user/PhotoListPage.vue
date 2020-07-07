@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <q-header elevated>
-      <q-toolbar class="bg-white">
+  <div class="style1 text-white">
+     <q-layout view="lHh lpr lFf">
+    <q-header style="background: rgba(0, 0, 0, 0.6);">
+      <q-toolbar >
         <q-btn
           color="teal"
           flat
@@ -15,6 +16,7 @@
       </q-toolbar>
     </q-header>
 
+   <q-page-container >
     <q-page v-if="user != null">
       <q-pull-to-refresh @refresh="getUser" color="teal">
         <div class="q-pt-sm row items-start q-gutter-sm">
@@ -70,6 +72,8 @@
         </div>
       </q-pull-to-refresh>
     </q-page>
+   </q-page-container>
+     </q-layout>
   </div>
 </template>
 
@@ -154,4 +158,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style type="text/css">
+.style1{
+  background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url('~assets/images/bg-login.jpg');;
+}
+</style>
+
