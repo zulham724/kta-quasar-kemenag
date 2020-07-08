@@ -56,7 +56,7 @@ const actions = {
                                 auth: auth
                             };
                             //alert('as')
-                            if(res.data.role.id!==10){
+                            if(res.data.role.id!==10 && res.data.role.id!==9){
                                 //console.log(res.data.role.id)
                                 throw new Error('not allowed');
                             }
