@@ -1,16 +1,16 @@
 <template>
+<div class="style1">
   <q-layout view="hHh Lpr fFf">
-    <q-header elevated>
-      <q-toolbar class="bg-white">
+    <q-header elevated style="background: rgba(0, 0, 0, 0.6);">
+      <q-toolbar>
         <q-btn
-          color="teal"
           flat
           dense
           icon="arrow_back"
           @click="$router.back()"
         />
         <q-toolbar-title>
-          <div class="text-body2 text-teal text-bold">Daftar Anggota</div>
+          <div class="text-body2 text-white text-bold">Daftar Anggota</div>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -18,6 +18,8 @@
     <q-page-container>
       <q-list bordered padding class="rounded-borders" v-if="district != null">
         <q-item
+          style="background: rgba(0, 0, 0, 0.6);"
+          class="text-white"
           clickable
           v-ripple
           v-for="user in district.users"
@@ -32,7 +34,7 @@
           <q-item-section>
             <q-item-label>{{user.name}}</q-item-label>
             <q-item-label caption>
-              <div class="row q-gutter-md">
+              <div class="row q-gutter-md text-white">
                 <div class="text-caption">{{user.posts.filter(item=>item.files.length).length}} Media</div>
                 <div class="text-caption">{{user.guest_events.length}} Acara</div>
                 <div class="text-caption">{{user.books.length}} Buku</div>
@@ -64,6 +66,7 @@
       </v-container> -->
     </q-page-container>
   </q-layout>
+  </div>
 </template>
 
 <script>

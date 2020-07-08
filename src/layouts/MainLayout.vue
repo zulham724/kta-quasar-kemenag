@@ -61,3 +61,9 @@ export default {
   }
 };
 </script>
+<style type="text/css">
+.style1{
+  background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url('~assets/images/bg-login.jpg');background-size:cover;
+  background-attachment: fixed;
+}
+</style>

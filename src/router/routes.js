@@ -122,6 +122,22 @@ const routes = [{
             import ("pages/post/CommentPage.vue"),
         props: true
     },
+    {
+        path: "/district/:name/:id",
+        beforeEnter: multiguard([auth, actived]),
+        name: "district",
+        component: () =>
+            import ("pages/DistrictPage.vue"),
+        props: true
+    },
+    {
+        path: "/districtuserlist/:districtId",
+        name: "districtuserlist",
+        beforeEnter: multiguard([auth, actived]),
+        component: () =>
+            import ("pages/user/DistrictUserListPage.vue"),
+        props: true
+    },
     // Always leave this as last one,
     // but you can also remove it
     {

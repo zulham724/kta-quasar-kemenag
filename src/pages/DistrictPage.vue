@@ -1,7 +1,7 @@
 <template>
 <div class="style1">
   <q-layout view="hHh Lpr fFf">
-    <q-header elevated  style="background: rgba(0, 0, 0, 0.6);">
+    <q-header elevated style="background: rgba(0, 0, 0, 0.6);">
       <q-toolbar>
         <q-btn
           flat
@@ -14,26 +14,27 @@
             {{ name }}
           </div>
         </q-toolbar-title>
-        <q-select dark label="Urutkan" @input="item=>item.handler()" style="width:40%" color="white" filled :options="sorts" v-model="selected" option-label="name" dense/>
+        <q-select label="Urutkan" @input="item=>item.handler()" style="width:40%" color="white" filled :options="sorts" v-model="selected" option-label="name" dense/>
       </q-toolbar>
     </q-header>
     <q-page-container>
       <q-list bordered padding class="rounded-borders">
         <q-item
-          style="background: rgba(0, 0, 0, 0.6);"
+            style="background: rgba(0, 0, 0, 0.6);"
           clickable
           v-ripple
-          v-for="city in cities"
-          :key="city.id"
-          @click="$router.push(`/district/${city.name}/${city.id}`)"
+          class="text-white"
+          v-for="district in districts"
+          :key="district.id"
+          @click="$router.push(`/districtuserlist/${district.id}`)"
         >
           <q-item-section>
-            <q-item-label lines="1" class="text-white">{{ city.name }}</q-item-label>
+            <q-item-label lines="1">{{ district.name }}</q-item-label>
           </q-item-section>
 
           <q-item-section side>
             <q-item-label lines="2"
-              >{{ city.users_count }} anggota</q-item-label
+              >{{ district.users_count }} anggota</q-item-label
             >
           </q-item-section>
         </q-item>
@@ -52,7 +53,7 @@ export default {
   },
   data() {
     return {
-      cities: [],
+      districts: [],
       sorts:[
         {
           name: 'Jumlah terbanyak',
@@ -66,7 +67,7 @@ export default {
     };
   },
   mounted() {
-    if (this.cities.length == 0) this.getProvinces();
+    if (this.districts.length == 0) this.getProvinces();
   },
   computed: {
     ...mapState(["Setting", "Auth"])
@@ -75,9 +76,9 @@ export default {
     getProvinces() {
       return new Promise((resolve, reject) => {
         this.$store
-          .dispatch("City/byProvinceId", this.id)
+          .dispatch("District/byCityId", this.id)
           .then(res => {
-            this.cities = res.data.cities;
+            this.districts = res.data.districts;
             this.$forceUpdate();
             resolve(res);
           })
@@ -87,10 +88,10 @@ export default {
       });
     },
     sortCountDesc(){
-      this.cities = this.cities.sort((a,b)=>(a.users_count < b.users_count) ? 1 : -1)
+      this.districts = this.districts.sort((a,b)=>(a.users_count < b.users_count) ? 1 : -1)
     },
     sortCountAsc(){
-      this.cities = this.cities.sort((a,b)=>(a.users_count > b.users_count) ? 1 : -1)
+      this.districts = this.districts.sort((a,b)=>(a.users_count > b.users_count) ? 1 : -1)
     },
   }
 };
